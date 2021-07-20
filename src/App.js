@@ -1,10 +1,28 @@
-import Home from "./pages/home";
 import "./App.css";
 
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+
+import { route } from "./config/route";
+
+import Route from "./routes/Route";
+
 function App() {
+  const generateRoute = () => {
+    return route.map((entry, idx) => (
+      <Route
+        key={idx}
+        path={entry.path}
+        component={entry.component}
+        exact={entry.exact}
+      />
+    ));
+  };
+
   return (
     <div className="App">
-      <Home />
+      <Router>
+        <Switch>{generateRoute()}</Switch>
+      </Router>
     </div>
   );
 }
