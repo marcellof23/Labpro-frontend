@@ -6,6 +6,7 @@ import { route } from "./config/route";
 
 import Route from "./routes/Route";
 
+//import NotFound from "./pages/NotFound";
 function App() {
   const generateRoute = () => {
     return route.map((entry, idx) => (

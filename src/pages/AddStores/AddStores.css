@@ -1,0 +1,51 @@
+.store-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(#fff, #ffd6d6);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.store-form-title {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 5%;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.store-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+}
+
+.form-item-store {
+  width: 80%;
+}
+
+.ant-col {
+  display: flex !important;
+  align-items: flex-star;
+}
+
+.form-input {
+  width: 400px;
+  margin-left: auto;
+}
+
+.submit-add-dorayaki {
+  margin-top: 20px;
+}
+
+.store-stock {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 5%;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 60%;
+}

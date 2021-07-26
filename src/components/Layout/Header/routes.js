@@ -11,15 +11,11 @@ const routes = [
     to: "/",
   },
   {
-    name: "Products",
-    to: "/products",
-  },
-  {
     name: "Stores",
     to: "/stores",
   },
   {
-    name: "AboutUs",
+    name: "About Us",
     to: "/aboutUs",
   },
 ];

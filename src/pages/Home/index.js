@@ -7,7 +7,7 @@ import sampleThumbnail from "../../assets/RedStore/images/user-2.png";
 import axios from "axios";
 import "./home.css";
 
-const Home = () => {
+const HomePage = () => {
   const [data, setData] = useState();
   const [isLoading, setisLoading] = useState(true);
 
@@ -55,10 +55,7 @@ const Home = () => {
             {!isLoading &&
               data.map((obj, i) => (
                 <div className="column-latest-card" key={obj.ID}>
-                  <div
-                    className="column-latest-thumbnail"
-                    src={sampleThumbnail}
-                  >
+                  <div className="column-latest-thumbnail">
                     <img src={sampleThumbnail} />
                   </div>
                   <div className="column-latest-rasa"> {obj.Rasa}</div>
@@ -72,4 +69,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

@@ -1,0 +1,27 @@
+.store-container-edit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 3%;
+}
+
+.column-store-stock {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
+  grid-row-gap: 50px;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  min-height: 30vh;
+}
+
+.column-stores-stock-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  height: 330px;
+}
