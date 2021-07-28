@@ -9,13 +9,18 @@ import "./home.css";
 
 const HomePage = () => {
   const [data, setData] = useState();
+  const [dataStore, setDataStore] = useState([]);
   const [isLoading, setisLoading] = useState(true);
+  const [isLoadingStore, setisLoadingStore] = useState(true);
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/dorayaki")
       .then((res) => {
-        setData(res.data);
+        let dorayakiArr = res.data.filter(
+          (dorayaki) => dorayaki.DorayakiStoreID !== null
+        );
+        setData(dorayakiArr);
         setisLoading(false);
         console.log(res.data);
       })
@@ -23,6 +28,29 @@ const HomePage = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/dorayaki-store")
+      .then((res) => {
+        setDataStore(res.data);
+        setisLoadingStore(false);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const findStoreName = (id) => {
+    if (dataStore.length) {
+      const index = dataStore.findIndex((data) => data.ID == id);
+      return index === -1 ? "" : dataStore[index].Nama;
+    }
+    return "";
+  };
+
+  console.log(findStoreName(3));
 
   return (
     <>
@@ -39,7 +67,7 @@ const HomePage = () => {
                 <h1>
                   Give Your Belly <br /> A Plenty of Dorayaki!
                 </h1>
-                <p>asdfasdfasdf asdfasdfa .asdf asdfasd asdf asd fasdf.</p>
+                <p>The biggest e-commerce dorayaki app on the entire world!</p>
                 <a href="#section2" className="btn">
                   Explore now &#8594;
                 </a>
@@ -53,13 +81,16 @@ const HomePage = () => {
         <div className="categories">
           <div className="column-latest" id="section2">
             {!isLoading &&
+              !isLoadingStore &&
               data.map((obj, i) => (
                 <div className="column-latest-card" key={obj.ID}>
-                  <div className="column-latest-thumbnail">
-                    <img src={sampleThumbnail} />
-                  </div>
-                  <div className="column-latest-rasa"> {obj.Rasa}</div>
+                  <img className="column-latest-img" src={sampleThumbnail} />
+                  <div className="column-latest-1"> {obj.Rasa}</div>
                   <div className="column-latest-deskripsi">{obj.Deskripsi}</div>
+                  <div className="column-latest-2">
+                    {findStoreName(obj.DorayakiStoreID)}
+                  </div>
+                  <div className="column-latest-footer"></div>
                 </div>
               ))}
           </div>

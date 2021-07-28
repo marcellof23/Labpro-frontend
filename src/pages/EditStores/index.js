@@ -5,6 +5,7 @@ import sampleThumbnail from "../../assets/RedStore/images/user-2.png";
 import Layout from "../../components/Layout";
 import { useParams } from "react-router-dom";
 import { Button, Input, Form, message, Spin } from "antd";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
 import "antd/dist/antd.css";
 import "./EditStores.css";
@@ -14,6 +15,7 @@ const EditStoresPage = () => {
   const { id } = useParams();
   const [isLoadingProps, setIsLoadingProps] = useState(true);
   const [isLoadingStock, setIsLoadingStock] = useState(true);
+  const [stockAnother, setStockAnother] = useState(0);
   const [storeValue, setStoreValue] = useState({
     Nama: "",
     Jalan: "",
@@ -65,7 +67,7 @@ const EditStoresPage = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (id) => {
     const isInputValid = await checkInputs();
     if (!isInputValid) {
       return;
@@ -78,8 +80,8 @@ const EditStoresPage = () => {
     };
 
     try {
-      const res = await axios.post(
-        "http://localhost:8080/dorayaki-store",
+      const res = await axios.put(
+        `http://localhost:8080/dorayaki-store/${id}`,
         body
       );
       if (res) {
@@ -100,6 +102,35 @@ const EditStoresPage = () => {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleAdd = (id) => {
+    setStoreStockValue(
+      [...storeStockValue].map((object) => {
+        if (object.ID === id) {
+          return {
+            ...object,
+            Jumlah: object.Jumlah + 1,
+          };
+        } else return object;
+      })
+    );
+  };
+
+  console.log(stockAnother);
+
+  const handleMinus = (id) => {
+    setStoreStockValue(
+      [...storeStockValue].map((object) => {
+        if (object.ID === id) {
+          setStockAnother(storeValue[id].Jumlah);
+          return {
+            ...object,
+            Jumlah: object.Jumlah > 0 ? object.Jumlah - 1 : object.Jumlah,
+          };
+        } else return object;
+      })
+    );
   };
 
   if (isLoadingProps && isLoadingStock) {
@@ -192,9 +223,9 @@ const EditStoresPage = () => {
               <Button
                 className="submit-add-dorayaki"
                 type="primary"
-                onClick={() => handleSubmit()}
+                onClick={() => handleSubmit(id)}
               >
-                Add Dorayaki Store
+                Edit Dorayaki Store
               </Button>
             </Form>
           </div>
@@ -202,15 +233,36 @@ const EditStoresPage = () => {
             {storeStockValue.map((obj) => (
               <div className="column-stores-stock-card" key={obj.ID}>
                 <div className="column-latest-thumbnail">
-                  <img src={sampleThumbnail} />
+                  <img className="column-latest-img" src={sampleThumbnail} />
                 </div>
-                <div className="column-latest-rasa"> {obj.Rasa}</div>
+                <div className="column-latest-2"> {obj.Rasa}</div>
                 <div className="column-latest-deskripsi">{obj.Deskripsi}</div>
-                <div className="column-latest-deskripsi">{obj.Jumlah}</div>
+                <div className="column-latest-jumlah">
+                  {" "}
+                  <Button
+                    className="plus-btn"
+                    type="primary"
+                    shape="circle"
+                    icon={<PlusOutlined />}
+                    onClick={() => handleAdd(obj.ID)}
+                  />
+                  {obj.Jumlah}
+                  <Button
+                    className="minus-btn"
+                    type="primary"
+                    shape="circle"
+                    icon={<MinusOutlined />}
+                    onClick={() => handleMinus(obj.ID)}
+                  />
+                </div>
+                <div className="column-update">
+                  <Button className="update-btn-store" type="secondary">
+                    Update Jumlah
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
-          <div className="store-stock">Current Variant</div>
         </div>
       </Layout>
     </>

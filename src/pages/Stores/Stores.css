@@ -21,10 +21,31 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 100%;
+  border-radius: 15px;
+  height: 600px;
+  min-width: 55%;
+  z-index: 2;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Poppins", sans-serif;
+}
 
-  border-radius: 5px;
-  height: 330px;
+.column-latest-alamat {
+  margin-top: 5%;
+  width: 125px;
+}
+.column-latest-thumbnail {
+  width: 100% !important;
+}
+
+.edit-btn {
+  width: 125px;
+  margin-top: 10%;
+}
+
+.remove-btn {
+  width: 125px;
+  margin-top: 5%;
 }
