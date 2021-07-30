@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import storeLogo from "../../assets/image3.png";
 import homeBG from "../../assets/image2.png";
-import axios from "axios";
+import { customAxios } from "../../modules/axios";
+
 import "./home.css";
 import { Image } from "antd";
 
@@ -31,7 +32,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    axios
+    customAxios
       .get("/dorayaki-store")
       .then((res) => {
         setDataStore(res.data);
