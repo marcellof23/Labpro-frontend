@@ -1,10 +1,12 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import sampleThumbnail from "../../assets/RedStore/images/user-2.png";
 import Layout from "../../components/Layout";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+
 import {
   Button,
   Input,
@@ -14,6 +16,7 @@ import {
   Modal,
   Menu,
   Dropdown,
+  Image,
 } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
@@ -36,6 +39,8 @@ const EditStoresPage = () => {
     Provinsi: "",
   });
 
+  let history = useHistory();
+
   const [storeStockValue, setStoreStockValue] = useState([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -50,7 +55,6 @@ const EditStoresPage = () => {
   const [currMax, setCurrMax] = useState(null);
   const showModal = (ids, i) => {
     setCurrMax(storeStockValue[i].Jumlah);
-    console.log(currMax);
     setCurrDorayakiId(ids);
     setIndexDorayakiId(i);
     setIsModalVisible(true);
@@ -58,7 +62,6 @@ const EditStoresPage = () => {
 
   const handleOk = async (idDorayaki) => {
     if (transferID !== null) {
-      console.log(idDorayaki);
       var body = {
         DorayakiStoreID: transferID,
         Rasa: storeStockValue[indexDorayakiId].Rasa,
@@ -76,8 +79,6 @@ const EditStoresPage = () => {
       };
       const res2 = await customAxios.put(`/dorayaki/${currDorayakiId}`, body2);
       if (res1 && res2) {
-        console.log(res1);
-        console.log(res2);
         message.success("Anda berhasil mentransfer stock");
       }
     }
@@ -107,11 +108,9 @@ const EditStoresPage = () => {
       gambar: storeStockValue[id].Gambar,
       jumlah: storeStockValue[id].Jumlah,
     };
-    console.log(body);
     customAxios
       .put(`/dorayaki/${objID}`, body)
       .then((res) => {
-        console.log(res);
         message.success("Anda berhasil mentransfer stock");
       })
       .catch((err) => {
@@ -147,7 +146,6 @@ const EditStoresPage = () => {
     axios
       .get(`http://localhost:8080/dorayaki/store/${id}`)
       .then((res) => {
-        console.log(res.data);
         setStoreStockValue(res.data);
         setTimeout(() => {
           setIsLoadingStock(false);
@@ -164,7 +162,6 @@ const EditStoresPage = () => {
       .then((res) => {
         setAllStore(res.data);
         setIsLoadingModal(false);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -202,6 +199,7 @@ const EditStoresPage = () => {
       if (res) {
         setTimeout(() => {
           message.success("Anda telah berhasil menambahkan stok dorayaki");
+          history.push("/stores");
         }, 2000);
       }
     } catch (err) {
@@ -220,7 +218,6 @@ const EditStoresPage = () => {
   };
 
   const handleAdd = (id) => {
-    console.log(id);
     setStoreStockValue(
       [...storeStockValue].map((object) => {
         if (isModalVisible) {
@@ -239,7 +236,6 @@ const EditStoresPage = () => {
         } else return object;
       })
     );
-    console.log(storeStockValue);
   };
 
   const handleMinus = (id) => {
@@ -363,7 +359,11 @@ const EditStoresPage = () => {
             {storeStockValue.map((obj, i) => (
               <div className="column-stores-stock-card" key={obj.ID}>
                 <div className="column-latest-thumbnail">
-                  <img className="column-latest-img" src={sampleThumbnail} />
+                  <Image
+                    className="column-latest-img"
+                    src={process.env.PUBLIC_URL + "/" + obj.Gambar}
+                    fallback={process.env.PUBLIC_URL + "/dorayaki1.jpeg"}
+                  />
                 </div>
                 <div className="column-latest-2"> {obj.Rasa}</div>
                 <div className="column-latest-deskripsi">{obj.Deskripsi}</div>

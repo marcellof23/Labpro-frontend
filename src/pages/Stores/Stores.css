@@ -53,3 +53,10 @@ a:hover {
 .searchbar {
   margin-top: 4%;
 }
+
+.store-title {
+  margin-top: 2%;
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+}

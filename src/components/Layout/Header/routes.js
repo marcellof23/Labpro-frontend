@@ -16,7 +16,7 @@ const routes = [
   },
   {
     name: "About Us",
-    to: "/aboutUs",
+    to: "/about-us",
   },
 ];
 

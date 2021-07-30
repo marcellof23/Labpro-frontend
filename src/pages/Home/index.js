@@ -1,11 +1,12 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import storeLogo from "../../assets/image3.png";
 import homeBG from "../../assets/image2.png";
-import sampleThumbnail from "../../assets/RedStore/images/user-2.png";
 import axios from "axios";
 import "./home.css";
+import { Image } from "antd";
 
 const HomePage = () => {
   const [data, setData] = useState();
@@ -85,7 +86,11 @@ const HomePage = () => {
               !isLoadingStore &&
               data.map((obj, i) => (
                 <div className="column-latest-card" key={obj.ID}>
-                  <img className="column-latest-img" src={sampleThumbnail} />
+                  <Image
+                    className="column-latest-img"
+                    src={process.env.PUBLIC_URL + "/" + obj.Gambar}
+                    fallback={process.env.PUBLIC_URL + "/dorayaki1.jpeg"}
+                  />
                   <div className="column-latest-1"> {obj.Rasa}</div>
                   <div className="column-latest-deskripsi">{obj.Deskripsi}</div>
                   <div className="column-latest-2">

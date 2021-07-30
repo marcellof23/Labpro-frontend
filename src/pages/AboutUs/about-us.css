@@ -1,0 +1,13 @@
+.about-us-container {
+  background-color: #171b23;
+  height: 75vh;
+  color: white;
+  font-size: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name-about {
+  color: white;
+}

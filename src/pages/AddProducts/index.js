@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import { Button, Input, Form, message } from "antd";
 import "antd/dist/antd.css";
 import "./AddProducts.css";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { customAxios } from "../../modules/axios";
 
 const ProductsPage = () => {
@@ -12,13 +12,13 @@ const ProductsPage = () => {
   const [data, setData] = useState();
   const [isLoading, setisLoading] = useState(true);
 
+  let history = useHistory();
   useEffect(() => {
     customAxios
       .get("/dorayaki/variant")
       .then((res) => {
         setData(res.data);
         setisLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -64,6 +64,7 @@ const ProductsPage = () => {
       if (res) {
         setTimeout(() => {
           message.success("Anda telah berhasil menambahkan stok dorayaki");
+          history.push("/stores");
         }, 1750);
       }
     } catch (err) {

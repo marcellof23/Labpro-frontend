@@ -64,7 +64,6 @@ const AddStoresPage = () => {
     }));
   };
 
-  console.log(storeValue);
   return (
     <>
       <Layout>
