@@ -6,7 +6,10 @@ export const customAxios = axios.create({
   baseURL,
   headers: {
     //"Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Origin": "https://marcellof.me",
+    "Access-Control-Allow-Origin": [
+      "http://localhost:3000",
+      "https://marcellof.me",
+    ],
   },
   withCredentials: true,
 });
