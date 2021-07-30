@@ -129,8 +129,8 @@ const EditStoresPage = () => {
   );
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/dorayaki-store/${id}`)
+    customAxios
+      .get(`/dorayaki-store/${id}`)
       .then((res) => {
         setStoreValue(res.data);
         setTimeout(() => {
@@ -143,8 +143,8 @@ const EditStoresPage = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/dorayaki/store/${id}`)
+    customAxios
+      .get(`/dorayaki/store/${id}`)
       .then((res) => {
         setStoreStockValue(res.data);
         setTimeout(() => {
@@ -157,8 +157,8 @@ const EditStoresPage = () => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/dorayaki-store")
+    customAxios
+      .get("/dorayaki-store")
       .then((res) => {
         setAllStore(res.data);
         setIsLoadingModal(false);

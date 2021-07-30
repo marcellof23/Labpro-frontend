@@ -15,8 +15,8 @@ const HomePage = () => {
   const [isLoadingStore, setisLoadingStore] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/dorayaki")
+    customAxios
+      .get("/dorayaki")
       .then((res) => {
         let dorayakiArr = res.data.filter(
           (dorayaki) => dorayaki.DorayakiStoreID !== null
@@ -32,7 +32,7 @@ const HomePage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/dorayaki-store")
+      .get("/dorayaki-store")
       .then((res) => {
         setDataStore(res.data);
         setisLoadingStore(false);
