@@ -78,8 +78,9 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="categories">
-          <div className="column-latest" id="section2">
+        <div className="categories" id="section2">
+          <div className="product-title">All products</div>
+          <div className="column-latest">
             {!isLoading &&
               !isLoadingStore &&
               data.map((obj, i) => (

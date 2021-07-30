@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Layout from "../../components/Layout";
 import { Button, Input, Form, message } from "antd";
 import "antd/dist/antd.css";
 import "./AddProducts.css";
+import { useParams } from "react-router-dom";
+import { customAxios } from "../../modules/axios";
 
 const ProductsPage = () => {
+  const { id, nama } = useParams();
   const [form] = Form.useForm();
   const [data, setData] = useState();
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/dorayaki/variant")
+    customAxios
+      .get("/dorayaki/variant")
       .then((res) => {
         setData(res.data);
         setisLoading(false);
@@ -54,11 +56,11 @@ const ProductsPage = () => {
       deskripsi: productValue.deskripsi,
       gambar: productValue.gambar,
       jumlah: Number(productValue.jumlah),
-      DorayakiStoreID: null,
+      DorayakiStoreID: Number(id),
     };
 
     try {
-      const res = await axios.post("http://localhost:8080/dorayaki", body);
+      const res = await customAxios.post("/dorayaki", body);
       if (res) {
         setTimeout(() => {
           message.success("Anda telah berhasil menambahkan stok dorayaki");
@@ -84,7 +86,9 @@ const ProductsPage = () => {
       <Layout>
         <div className="product-container">
           <div className="product-form">
-            <div className="product-form-title">Add New Dorayaki Variant</div>
+            <div className="product-form-title">
+              Add New Dorayaki Variant in {nama}
+            </div>
             <Form layout="vertical" form={form} className="event-content">
               <Form.Item
                 label="Rasa"

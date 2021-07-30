@@ -12,7 +12,7 @@ export const route = [
     exact: true,
   },
   {
-    path: "/products/add",
+    path: "/products/add/:id/:nama",
     component: AddProducts,
   },
   {

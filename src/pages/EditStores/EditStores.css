@@ -60,3 +60,40 @@
 .update-btn-store {
   margin-top: 20%;
 }
+
+.column-transfer {
+  margin-top: 5%;
+}
+
+.input-user {
+  display: flex;
+  flex-direction: row;
+}
+
+.plus-btn2 {
+  background-color: #32cd30;
+  border-width: 0px;
+  margin-right: 20%;
+}
+
+.minus-btn2 {
+  background-color: red;
+  border-width: 0px;
+  margin-left: 20%;
+}
+
+.nama-toko {
+  width: 80px;
+}
+.show-store {
+  margin-left: 10%;
+  margin-bottom: 5%;
+}
+
+.input-user-modal {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

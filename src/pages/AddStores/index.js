@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Layout from "../../components/Layout";
 import { Button, Input, Form, message } from "antd";
 
 import "antd/dist/antd.css";
 import "./AddStores.css";
+import { customAxios } from "../../modules/axios";
 
 const AddStoresPage = () => {
   const [form] = Form.useForm();
@@ -43,10 +43,7 @@ const AddStoresPage = () => {
     };
 
     try {
-      const res = await axios.post(
-        "http://localhost:8080/dorayaki-store",
-        body
-      );
+      const res = await customAxios.post("/dorayaki-store", body);
       if (res) {
         setTimeout(() => {
           message.success("Anda telah berhasil menambahkan stok dorayaki");

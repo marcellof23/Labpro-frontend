@@ -1,29 +1,27 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import axios from "axios";
+import { customAxios } from "../../modules/axios";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Input } from "antd";
+const { Search } = Input;
 import sampleThumbnail from "../../assets/RedStore/images/user-2.png";
 import "./Stores.css";
 const Stores = () => {
-  const [data, setData] = useState();
+  const [_, setData] = useState();
+  const [items, setItems] = useState();
   const [isLoading, setisLoading] = useState(true);
-
-  const baseURL = "http://localhost:8080";
-  const axiosInstance = axios.create({
-    baseURL,
-    headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-    },
-    withCredentials: true,
-  });
+  const [q, setQ] = useState("");
+  const [searchParam] = useState(["Provinsi", "Kecamatan"]);
+  const [filterParam, setFilterParam] = useState(["All"]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/dorayaki-store")
+    customAxios
+      .get("/dorayaki-store")
       .then((res) => {
         setData(res.data);
+        setItems(res.data);
         setisLoading(false);
         console.log(res.data);
       })
@@ -34,7 +32,7 @@ const Stores = () => {
 
   const handleRemove = async (id) => {
     console.log("WOIIIIIIIIIIi");
-    axiosInstance
+    customAxios
       .delete(`/dorayaki-store/${id}`)
       .then((res) => {
         console.log(res.data);
@@ -44,12 +42,42 @@ const Stores = () => {
       });
   };
 
+  const onSearch = (value) => {
+    setQ(value);
+  };
+
+  function search(itemsArr) {
+    return itemsArr.filter((item) => {
+      if (item.Provinsi == filterParam) {
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+          );
+        });
+      } else if (filterParam == "All") {
+        console.log(itemsArr);
+        return searchParam.some((newItem) => {
+          return (
+            item[newItem].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+          );
+        });
+      }
+    });
+  }
+
   return (
     <Layout>
       <div className="store-container">
+        <Search
+          placeholder="Search by kecamatan or province"
+          style={{ width: 400 }}
+          onSearch={onSearch}
+          onChange={(e) => setQ(e.target.value)}
+          className="searchbar"
+        />
         <div className="column-store">
           {!isLoading &&
-            data.map((obj) => (
+            search(items).map((obj) => (
               <div className="column-stores-card" key={obj.ID}>
                 <div className="column-latest-thumbnail">
                   <img className="column-latest-img" src={sampleThumbnail} />
